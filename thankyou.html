@@ -6,65 +6,206 @@
     <title>¡Gracias por tu compra! - PDF Presenter</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
+        /* Variables CSS (tomadas de index.html para consistencia) */
+        :root {
+            --primary-blue: #1A4C9B; /* Azul del acento */
+            --primary-blue-dark: #123770; /* Azul más oscuro */
+            --dark-background: #1a1a1a; /* Fondo muy oscuro, casi negro */
+            --light-text: #e0e0e0; /* Texto claro para fondo oscuro */
+            --heading-color: #f0f0f0; /* Color para títulos en fondo oscuro */
+            --card-bg: #ffffff; /* Fondo de las tarjetas (blanco) */
+            --shadow: rgba(0, 0, 0, 0.25); /* Sombra */
+            --transition-speed: 0.3s;
+        }
+
         body {
             font-family: 'Poppins', sans-serif;
             margin: 0;
-            padding: 40px;
-            background-color: #f8f9fa;
-            color: #495057;
-            text-align: center;
+            padding: 0;
+            background-color: var(--dark-background);
+            color: var(--light-text);
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Ocupa toda la altura de la ventana */
+            overflow: hidden; /* Para la superposición de captura */
         }
+
         .container {
-            max-width: 600px;
-            margin: 40px auto;
-            background-color: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            max-width: 700px;
+            margin: 20px; /* Margen para pantallas pequeñas */
+            background-color: var(--dark-background); /* Fondo oscuro para el contenedor */
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(255, 255, 255, 0.1); /* Sombra y brillo interno */
+            text-align: center;
+            border: 1px solid rgba(26, 76, 155, 0.5); /* Borde sutil con el color de acento */
+            position: relative;
+            z-index: 1; /* Asegura que esté por encima de la capa de captura */
         }
+
         h1 {
-            color: #007bff;
+            color: var(--primary-blue); /* Título con el color de acento */
             margin-bottom: 20px;
+            font-size: 2.5em;
+            font-weight: 700;
+            text-shadow: 0 0 8px rgba(26, 76, 155, 0.7); /* Brillo en el título */
         }
+
         p {
             font-size: 1.1em;
-            line-height: 1.7;
+            margin-bottom: 25px;
+            color: var(--light-text);
+        }
+
+        .license-container {
+            background-color: var(--primary-blue-dark); /* Fondo oscuro para el área de licencia */
+            padding: 20px;
+            border-radius: 8px;
             margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            border: 1px dashed rgba(255, 255, 255, 0.3); /* Borde punteado */
         }
+
         .license-key {
-            background-color: #e9ecef;
-            padding: 15px;
-            border-radius: 6px;
-            font-size: 1.2em;
+            font-family: 'Courier New', monospace; /* Fuente monoespaciada para la clave */
+            font-size: 1.6em;
             font-weight: bold;
-            color: #28a745;
-            margin-bottom: 20px;
+            color: #28a745; /* Verde para la licencia */
             letter-spacing: 2px;
+            user-select: none; /* Evita que se pueda seleccionar el texto */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            filter: blur(8px); /* Inicialmente borroso para ocultar */
+            transition: filter 0.5s ease-in-out;
         }
-        .button {
-            display: inline-block;
-            background-color: #007bff;
+
+        .license-key.revealed {
+            filter: blur(0); /* Sin desenfoque cuando se revela */
+        }
+
+        .reveal-button {
+            background-color: var(--primary-blue);
             color: white;
             padding: 12px 25px;
             border-radius: 6px;
             text-decoration: none;
             font-weight: 600;
-            transition: background-color 0.3s ease;
+            font-size: 1em;
+            border: none;
+            cursor: pointer;
+            transition: background-color var(--transition-speed) ease, transform var(--transition-speed) ease;
+            margin-top: 15px;
         }
-        .button:hover {
-            background-color: #0056b3;
+
+        .reveal-button:hover {
+            background-color: var(--primary-blue-dark);
+            transform: translateY(-2px);
+        }
+
+        .button-back {
+            display: inline-block;
+            background-color: #6c757d; /* Gris para el botón de volver */
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            margin-top: 30px;
+            transition: background-color var(--transition-speed) ease;
+        }
+
+        .button-back:hover {
+            background-color: #5a6268;
+        }
+
+        /* Capa de oscurecimiento para la protección de captura de pantalla */
+        #capture-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9); /* Oscurece casi por completo */
+            z-index: 9999; /* Asegura que esté en la parte superior */
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.1s ease-out, visibility 0.1s ease-out;
+        }
+
+        #capture-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 25px;
+            }
+            h1 {
+                font-size: 2em;
+            }
+            .license-key {
+                font-size: 1.2em;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div id="capture-overlay"></div> <div class="container">
         <h1>¡Gracias por tu compra de PDF Presenter!</h1>
         <p>Agradecemos tu apoyo. Tu licencia ha sido generada y está lista para ser utilizada.</p>
-        <div class="license-key">
-            Licencia: 216573AE419CC
+
+        <div class="license-container">
+            <p style="margin-bottom: 10px; font-weight: 600;">Tu Clave de Licencia:</p>
+            <div id="licenseText" class="license-key">
+                216573AE419CC
+            </div>
+            <button id="revealButton" class="reveal-button">Revelar Licencia</button>
         </div>
-        <p>Por favor, guarda esta clave en un lugar seguro. La necesitarás para activar tu copia de PDF Presenter.</p>
-        <a href="/" class="button">Volver a la página principal</a>
+
+        <p>Por favor, copia esta clave y guárdala en un lugar seguro. La necesitarás para activar tu copia de PDF Presenter.</p>
+        <p>¡Disfruta de tus presentaciones simples y poderosas!</p>
+
+        <a href="/" class="button-back">Volver a la página principal</a>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const licenseText = document.getElementById('licenseText');
+            const revealButton = document.getElementById('revealButton');
+            const captureOverlay = document.getElementById('capture-overlay');
+
+            // --- Funcionalidad de revelar licencia ---
+            revealButton.addEventListener('click', () => {
+                licenseText.classList.add('revealed');
+                revealButton.style.display = 'none'; // Oculta el botón después de revelar
+            });
+
+            // --- Protección básica contra captura de pantalla (tecla Print Screen) ---
+            document.addEventListener('keyup', (e) => {
+                // Key code 44 es para 'Print Screen' o 'PrtSc' en la mayoría de los teclados
+                if (e.keyCode === 44) {
+                    captureOverlay.classList.add('active'); // Activa el oscurecimiento
+                    setTimeout(() => {
+                        captureOverlay.classList.remove('active'); // Desactiva después de un breve tiempo
+                    }, 200); // 200ms de duración del oscurecimiento
+                }
+            });
+
+            // --- Prevención básica de clic derecho y selección de texto en la licencia ---
+            licenseText.addEventListener('contextmenu', (e) => {
+                e.preventDefault(); // Evita el menú contextual del clic derecho
+            });
+
+            // Ya está user-select: none; en CSS, pero se puede reforzar con JS si fuera necesario
+            // licenseText.addEventListener('selectstart', (e) => {
+            //     e.preventDefault();
+            // });
+        });
+    </script>
 </body>
 </html>
