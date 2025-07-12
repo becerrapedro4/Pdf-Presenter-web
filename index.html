@@ -8,13 +8,13 @@
     <style>
         /* Variables CSS para el color de acento */
         :root {
-            --primary-blue: #007bff; /* Un azul vibrante */
-            --primary-blue-dark: #0056b3;
-            --light-gray: #f8f9fa;
-            --dark-gray: #343a40;
-            --text-color: #495057;
-            --card-bg: #ffffff;
-            --shadow: rgba(0, 0, 0, 0.08);
+            --primary-blue: #0056b3; /* Azul oscuro */
+            --primary-blue-dark: #003d7a; /* Un azul aún más profundo para contraste */
+            --dark-background: #1a1a1a; /* Fondo muy oscuro, casi negro */
+            --light-text: #e0e0e0; /* Texto claro para fondo oscuro */
+            --heading-color: #f0f0f0; /* Color para títulos en fondo oscuro */
+            --card-bg: #ffffff; /* Fondo de las tarjetas (blanco) */
+            --shadow: rgba(0, 0, 0, 0.25); /* Sombra más pronunciada para contraste en fondo oscuro */
             --transition-speed: 0.3s;
         }
 
@@ -23,8 +23,8 @@
             font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: var(--light-gray);
-            color: var(--text-color);
+            background-color: var(--dark-background); /* Fondo oscuro */
+            color: var(--light-text); /* Texto claro */
             line-height: 1.6;
             overflow-x: hidden; /* Evita barras de desplazamiento horizontales */
         }
@@ -38,7 +38,7 @@
         /* Encabezado (Hero Section) */
         .hero-section {
             background-color: var(--primary-blue);
-            color: white;
+            color: white; /* El texto del encabezado sigue siendo blanco para contrastar con el azul */
             text-align: center;
             padding: 80px 20px;
             position: relative;
@@ -53,7 +53,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(45deg, rgba(0, 123, 255, 0.9), rgba(0, 86, 179, 0.9));
+            background: linear-gradient(45deg, rgba(0, 86, 179, 0.9), rgba(0, 61, 122, 0.9));
             z-index: 1;
         }
 
@@ -91,9 +91,9 @@
         }
 
         .button:hover {
-            background-color: var(--light-gray);
+            background-color: var(--light-text); /* Usar el color de texto claro para el hover */
             transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.35); /* Sombra más oscura para el hover */
         }
 
         /* Sección de Características */
@@ -105,7 +105,7 @@
         .features-section h2 {
             font-size: 2.5em;
             margin-bottom: 40px;
-            color: var(--dark-gray);
+            color: var(--heading-color); /* Título de sección claro */
             font-weight: 700;
         }
 
@@ -117,9 +117,9 @@
         }
 
         .feature-card {
-            background-color: var(--card-bg);
+            background-color: var(--card-bg); /* Sigue siendo blanco para buen contraste */
             border-radius: 12px;
-            box-shadow: 0 6px 20px var(--shadow);
+            box-shadow: 0 6px 20px var(--shadow); /* Sombra ajustada para fondo oscuro */
             padding: 30px;
             text-align: left;
             transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
@@ -134,32 +134,32 @@
 
         .feature-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45); /* Sombra más oscura para el hover */
         }
 
         .feature-card img {
             max-width: 100%;
             border-radius: 8px;
             margin-bottom: 20px;
-            border: 1px solid #eee; /* Borde sutil para las imágenes */
+            border: 1px solid #333; /* Borde más visible en fondo oscuro */
         }
 
         .feature-card h3 {
-            color: var(--primary-blue-dark);
+            color: var(--primary-blue-dark); /* Títulos de tarjeta en azul oscuro */
             font-size: 1.8em;
             margin-bottom: 10px;
             font-weight: 600;
         }
 
         .feature-card p {
+            color: var(--text-color); /* Texto de tarjeta oscuro (dentro de la tarjeta blanca) */
             font-size: 1em;
-            color: var(--text-color);
         }
 
         /* Sección "Próximamente" */
         .coming-soon-section {
             background-color: var(--primary-blue);
-            color: white;
+            color: white; /* Texto blanco */
             text-align: center;
             padding: 60px 20px;
             margin-top: 50px;
@@ -182,7 +182,7 @@
             text-align: center;
             padding: 30px 20px;
             margin-top: 40px;
-            color: var(--dark-gray);
+            color: var(--light-text); /* Texto de pie de página claro */
             font-size: 0.9em;
         }
 
@@ -255,6 +255,12 @@
                 <img src="vista previa de diapositivas pdf presenter.png" alt="Vista previa de diapositivas de PDF Presenter">
                 <h3>Vista Previa de Diapositivas</h3>
                 <p>Navegue visualmente por todas sus diapositivas con la práctica vista previa. Esto le permite saltar rápidamente a cualquier parte de su presentación o revisar el contenido de un vistazo.</p>
+            </div>
+
+            <div class="feature-card">
+                <img src="exportar a png pdf presenter.png" alt="Exportar a PNG en PDF Presenter">
+                <h3>Exportar a Imágenes PNG</h3>
+                <p>Permite exportar tus presentaciones PDF como imágenes PNG. Una función útil para compartir diapositivas individuales o crear miniaturas de forma rápida.</p>
             </div>
 
         </div>
