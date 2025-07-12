@@ -8,8 +8,8 @@
     <style>
         /* Variables CSS para el color de acento */
         :root {
-            --primary-blue: #0056b3; /* Azul oscuro */
-            --primary-blue-dark: #003d7a; /* Un azul aún más profundo para contraste */
+            --primary-blue: #1A4C9B; /* Azul del acento de la foto "moderador pdf presenter.png" */
+            --primary-blue-dark: #123770; /* Un azul más profundo para contraste */
             --dark-background: #1a1a1a; /* Fondo muy oscuro, casi negro */
             --light-text: #e0e0e0; /* Texto claro para fondo oscuro */
             --heading-color: #f0f0f0; /* Color para títulos en fondo oscuro */
@@ -31,7 +31,7 @@
 
         .container {
             max-width: 1200px;
-            margin: 0 auto;
+            margin: 0 auto; /* Centrado horizontal */
             padding: 20px;
         }
 
@@ -45,9 +45,9 @@
             overflow: hidden;
             animation: fadeIn 1s ease-out;
             min-height: 400px; /* Asegura que la sección tenga altura para ver la animación */
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; /* Para centrar el contenido verticalmente */
+            align-items: center; /* Centrado vertical */
+            justify-content: center; /* Centrado horizontal del flex item */
         }
 
         /* Canvas para la animación de partículas */
@@ -58,7 +58,6 @@
             width: 100%;
             height: 100%;
             z-index: 0; /* Asegura que esté detrás del contenido */
-            /* El fondo degradado lo maneja el JS para las partículas */
         }
 
         .hero-content {
@@ -89,7 +88,7 @@
         .button {
             display: inline-block;
             background-color: white;
-            color: var(--primary-blue);
+            color: var(--primary-blue); /* Color del botón de acuerdo al nuevo azul */
             padding: 15px 30px;
             border-radius: 8px;
             text-decoration: none;
@@ -108,7 +107,7 @@
         /* Sección de Características */
         .features-section {
             padding: 60px 20px;
-            text-align: center;
+            text-align: center; /* Centra el título y el grid */
         }
 
         .features-section h2 {
@@ -122,7 +121,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
-            justify-content: center;
+            justify-content: center; /* Centra el grid si los elementos no llenan la fila */
         }
 
         .feature-card {
@@ -167,7 +166,7 @@
 
         /* Sección "Próximamente" */
         .coming-soon-section {
-            background-color: var(--primary-blue);
+            background-color: var(--primary-blue); /* Color del acento */
             color: white; /* Texto blanco */
             text-align: center;
             padding: 60px 20px;
@@ -386,8 +385,8 @@
                 ctx.clearRect(0, 0, canvas.width, canvas.height); // Limpiar canvas
                 // También podemos dibujar un fondo degradado sutil aquí para la Hero Section
                 let gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-                gradient.addColorStop(0, 'rgba(0, 86, 179, 0.5)'); // Azul oscuro del hero
-                gradient.addColorStop(1, 'rgba(0, 61, 122, 0.5)'); // Azul más oscuro
+                gradient.addColorStop(0, 'rgba(26, 76, 155, 0.5)'); // Nuevo azul del hero
+                gradient.addColorStop(1, 'rgba(18, 55, 112, 0.5)'); // Nuevo azul más oscuro
                 ctx.fillStyle = gradient;
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
