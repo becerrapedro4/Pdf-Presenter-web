@@ -85,6 +85,15 @@
             animation-fill-mode: backwards;
         }
 
+        .button-group {
+            display: flex; /* Para que los botones estén uno al lado del otro */
+            justify-content: center;
+            gap: 20px; /* Espacio entre los botones */
+            margin-top: 30px; /* Espacio superior para el grupo */
+            animation: fadeIn 1s ease-out 0.6s;
+            animation-fill-mode: backwards;
+        }
+
         .button {
             display: inline-block;
             background-color: white;
@@ -103,6 +112,19 @@
             transform: translateY(-3px);
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.35); /* Sombra más oscura para el hover */
         }
+
+        /* Estilo específico para el botón de descarga, si se desea diferenciar */
+        .button.download {
+            background-color: var(--primary-blue); /* Azul principal para la descarga */
+            color: white;
+            border: 2px solid white; /* Borde blanco para destacar */
+        }
+
+        .button.download:hover {
+            background-color: var(--primary-blue-dark);
+            border-color: var(--light-text);
+        }
+
 
         /* Sección de Características */
         .features-section {
@@ -220,6 +242,10 @@
             .hero-content p {
                 font-size: 1em;
             }
+            .button-group {
+                flex-direction: column; /* Apila los botones en pantallas pequeñas */
+                gap: 15px; /* Espacio entre botones apilados */
+            }
             .feature-card {
                 padding: 20px;
             }
@@ -235,7 +261,9 @@
         <canvas id="particles-canvas"></canvas> <div class="hero-content">
             <h1>PDF Presenter</h1>
             <p>Presente sus PDF como si fueran PowerPoint. Simple, Práctico y Portable.</p>
-            <a href="https://mpago.li/1VckFFz" class="button" target="_blank" rel="noopener noreferrer">Comprar Licencia</a>
+            <div class="button-group">
+                <a href="https://github.com/becerrapedro4/Pdf-Presenter/releases/download/New-Features/pdf_presenter_2.9.5_dark.exe" class="button download" id="downloadButton">Descargar Prueba</a> <a href="https://mpago.li/1VckFFz" class="button" target="_blank" rel="noopener noreferrer">Comprar Licencia</a>
+            </div>
         </div>
     </header>
 
